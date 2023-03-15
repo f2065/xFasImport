@@ -1,0 +1,10 @@
+﻿
+Updater
+Hide system dll
+Logo
+Obj-load COFF
+Manual load offsets
+Tips about fas-files
+Autoload all fas-file
+Remove old DB if chechsum incorrect
+Run from toolbar

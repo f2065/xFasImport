@@ -1,0 +1,132 @@
+#define dlg_cfg0a 1101
+#define IDC_STC1 1501
+#define IDC_STC2 1601
+#define dlg_settings 500
+#define dlg_settings_codepage_info 501
+#define dlg_settings_codepage_select 502
+#define dlg_settings_delete_old_labels 516
+#define dlg_settings_import_labels 504
+#define dlg_settings_delete_old_comments 517
+#define dlg_settings_import_sources 503
+#define dlg_settings_append_labels 511
+#define dlg_settings_remove_spaces 505
+#define dlg_settings_tabsize_info 509
+#define dlg_settings_tabsize1 510
+#define dlg_settings_tabsize2 512
+#define dlg_settings_tabsize3 513
+#define dlg_settings_tabsize4 514
+#define dlg_settings_tabsize5 515
+#define dlg_settings_tabsize_def 508
+#define dlg_settings_flag_MANUAL_labels 518
+#define dlg_settings_flag_MANUAL_comments 519
+#define dlg_settings_flags_info 520
+#define dlg_settings_OFN_force 522
+#define dlg_settings_ok 506
+#define dlg_settings_cancel 507
+#define IDC_STC3 521
+#define dlg_about 1000
+#define dlg_about_version 1006
+#define dlg_about_desc1 1005
+#define dlg_about_author 1009
+#define dlg_about_author_url 1002
+#define dlg_about_sources 1010
+#define dlg_about_sources_url 1007
+#define dlg_about_forum 1011
+#define dlg_about_forum_url 1008
+#define dlg_about_desc2 1004
+#define dlg_about_help_fas 1003
+#define dlg_about_langcode 1016
+#define dlg_about_langcode_data 1015
+#define dlg_about_lang_author 1013
+#define dlg_about_lang_author_data 1017
+#define dlg_about_lang_version 1014
+#define dlg_about_lang_version_data 1018
+#define dlg_about_lang_status 1019
+#define dlg_about_close 1001
+#define IDC_STC5 1012
+#define dlg_dll 1100
+#define dlg_dll_cancel 1102
+#define dlg_dll_load 1103
+#define dlg_dll_list 1101
+#define IDC_STC4 1104
+#define dlg_filetest 1200
+#define dlg_filetest_list 1202
+#define dlg_filetest_close 1203
+#define IDC_STC6 1201
+
+dlg_settings DIALOGEX 0,0,396,249
+FONT 8,"Microsoft Sans Serif",400,0,204
+STYLE WS_POPUP|WS_VISIBLE|WS_CAPTION|WS_SYSMENU|DS_CENTER|DS_MODALFRAME|DS_3DLOOK
+EXSTYLE WS_EX_DLGMODALFRAME
+BEGIN
+  CONTROL "Source text codepage",dlg_settings_codepage_info,"Static",WS_CHILDWINDOW|WS_VISIBLE|SS_CENTERIMAGE,12,9,87,12
+  CONTROL "",dlg_settings_codepage_select,"ComboBox",WS_CHILDWINDOW|WS_VISIBLE|WS_VSCROLL|WS_HSCROLL|WS_TABSTOP|CBS_DROPDOWNLIST,102,9,279,51
+  CONTROL "Delete all old labels before import",dlg_settings_delete_old_labels,"Button",WS_CHILDWINDOW|WS_VISIBLE|WS_TABSTOP|BS_AUTOCHECKBOX,12,27,372,12
+  CONTROL "Import labels",dlg_settings_import_labels,"Button",WS_CHILDWINDOW|WS_VISIBLE|WS_TABSTOP|BS_AUTOCHECKBOX,12,42,372,12
+  CONTROL "Delete all old comments before import",dlg_settings_delete_old_comments,"Button",WS_CHILDWINDOW|WS_VISIBLE|WS_TABSTOP|BS_AUTOCHECKBOX,12,63,372,12
+  CONTROL "Import sources (to comment fields)",dlg_settings_import_sources,"Button",WS_CHILDWINDOW|WS_VISIBLE|WS_TABSTOP|BS_AUTOCHECKBOX,12,78,372,12
+  CONTROL "Append labels before source line (in comment fields)",dlg_settings_append_labels,"Button",WS_CHILDWINDOW|WS_VISIBLE|WS_TABSTOP|BS_AUTOCHECKBOX,12,93,372,12
+  CONTROL "Remove all consecutive spaces (0x20,0x20) and tab (0x09) in the sources",dlg_settings_remove_spaces,"Button",WS_CHILDWINDOW|WS_VISIBLE|WS_TABSTOP|BS_AUTOCHECKBOX,12,108,372,12
+  CONTROL "Tab character (0x09) indents",dlg_settings_tabsize_info,"Static",WS_CHILDWINDOW|WS_VISIBLE|SS_CENTERIMAGE,12,123,108,12
+  CONTROL "222",dlg_settings_tabsize1,"Edit",WS_CHILDWINDOW|WS_VISIBLE|WS_TABSTOP|ES_NUMBER|ES_CENTER,123,123,15,12,WS_EX_CLIENTEDGE
+  CONTROL "222",dlg_settings_tabsize2,"Edit",WS_CHILDWINDOW|WS_VISIBLE|WS_TABSTOP|ES_NUMBER|ES_CENTER,144,123,15,12,WS_EX_CLIENTEDGE
+  CONTROL "222",dlg_settings_tabsize3,"Edit",WS_CHILDWINDOW|WS_VISIBLE|WS_TABSTOP|ES_NUMBER|ES_CENTER,165,123,15,12,WS_EX_CLIENTEDGE
+  CONTROL "222",dlg_settings_tabsize4,"Edit",WS_CHILDWINDOW|WS_VISIBLE|WS_TABSTOP|ES_NUMBER|ES_CENTER,186,123,15,12,WS_EX_CLIENTEDGE
+  CONTROL "222",dlg_settings_tabsize5,"Edit",WS_CHILDWINDOW|WS_VISIBLE|WS_TABSTOP|ES_NUMBER|ES_CENTER,207,123,15,12,WS_EX_CLIENTEDGE
+  CONTROL "set default tabs (8*n)",dlg_settings_tabsize_def,"Button",WS_CHILDWINDOW|WS_VISIBLE|WS_TABSTOP,243,123,105,12
+  CONTROL "Use flag MANUAL for labels (otherwise use flag AUTO)",dlg_settings_flag_MANUAL_labels,"Button",WS_CHILDWINDOW|WS_VISIBLE|WS_TABSTOP|BS_AUTOCHECKBOX,12,144,372,12
+  CONTROL "Use flag MANUAL for comments (otherwise use flag AUTO)",dlg_settings_flag_MANUAL_comments,"Button",WS_CHILDWINDOW|WS_VISIBLE|WS_TABSTOP|BS_AUTOCHECKBOX,12,156,372,12
+  CONTROL "These options affect conflict situations when using other methods\r\n (from other plugins, manually, etc.) of adding labels and comments.",dlg_settings_flags_info,"Static",WS_CHILDWINDOW|WS_VISIBLE,12,168,372,21
+  CONTROL "Always use the file selection dialog (otherwise, search by mask first)",dlg_settings_OFN_force,"Button",WS_CHILDWINDOW|WS_VISIBLE|WS_TABSTOP|BS_AUTOCHECKBOX,12,189,372,12
+  CONTROL "OK",dlg_settings_ok,"Button",WS_CHILDWINDOW|WS_VISIBLE|WS_TABSTOP|BS_DEFPUSHBUTTON,91,216,72,15
+  CONTROL "Cancel",dlg_settings_cancel,"Button",WS_CHILDWINDOW|WS_VISIBLE|WS_TABSTOP,232,216,72,15
+  CONTROL "This RC-file is not used in the build and is only needed for development UI.\r\nThe build uses file xFasImport_Dialogs.asm",IDC_STC3,"Static",WS_CHILDWINDOW|WS_VISIBLE|SS_CENTER,3,231,390,18
+END
+
+dlg_about DIALOGEX 0,0,351,201
+FONT 8,"Microsoft Sans Serif",0,0,0
+STYLE WS_POPUP|WS_VISIBLE|WS_CAPTION|WS_SYSMENU|DS_CENTER|DS_MODALFRAME|DS_3DLOOK
+EXSTYLE WS_EX_DLGMODALFRAME
+BEGIN
+  CONTROL "xFasImport v.1.0.0 (2022-07-19)",dlg_about_version,"Static",WS_CHILDWINDOW|WS_VISIBLE|SS_CENTER,6,6,339,12
+  CONTROL "(english always) Plugin for importing debug information from flat assembler into x64dbg (from .fas file)",dlg_about_desc1,"Static",WS_CHILDWINDOW|WS_VISIBLE|SS_CENTER,6,18,339,12
+  CONTROL "Author",dlg_about_author,"Static",WS_CHILDWINDOW|WS_VISIBLE|SS_RIGHT,6,33,138,12
+  CONTROL "<a>https://f2065.ru</a> <a>support@f2065.ru</a>",dlg_about_author_url,"SysLink",WS_CHILDWINDOW|WS_VISIBLE|LWS_TRANSPARENT,147,33,153,12
+  CONTROL "Sources",dlg_about_sources,"Static",WS_CHILDWINDOW|WS_VISIBLE|SS_RIGHT,6,45,138,12
+  CONTROL "<a>https://github.com/f2065/xFasImport</a>",dlg_about_sources_url,"SysLink",WS_CHILDWINDOW|WS_VISIBLE|LWS_TRANSPARENT,147,45,153,9
+  CONTROL "Forum",dlg_about_forum,"Static",WS_CHILDWINDOW|WS_VISIBLE|SS_RIGHT,6,57,138,12
+  CONTROL "<a>https://board.flatassembler.net</a>",dlg_about_forum_url,"SysLink",WS_CHILDWINDOW|WS_VISIBLE|LWS_TRANSPARENT,147,57,153,12
+  CONTROL "(localization) Plugin for importing debug information from flat assembler into x64dbg (from .fas file)",dlg_about_desc2,"Static",WS_CHILDWINDOW|WS_VISIBLE|SS_CENTER,6,75,339,9
+  CONTROL "To generate debug info (.fas file):\r\nfor fasm.exe, use the –s switch,\r\nfor fasmw.exe, use the Build symbols (Ctrl+F8) command.",dlg_about_help_fas,"Static",WS_CHILDWINDOW|WS_VISIBLE|SS_CENTER,6,87,339,27
+  CONTROL "System language code",dlg_about_langcode,"Static",WS_CHILDWINDOW|WS_VISIBLE|SS_RIGHT,6,126,138,9
+  CONTROL "ru",dlg_about_langcode_data,"Static",WS_CHILDWINDOW|WS_VISIBLE,147,126,198,9
+  CONTROL "Translation author",dlg_about_lang_author,"Static",WS_CHILDWINDOW|WS_VISIBLE|SS_RIGHT,6,138,138,9
+  CONTROL "f2065",dlg_about_lang_author_data,"Static",WS_CHILDWINDOW|WS_VISIBLE,147,138,198,9
+  CONTROL "Translation version",dlg_about_lang_version,"Static",WS_CHILDWINDOW|WS_VISIBLE|SS_RIGHT,6,150,138,9
+  CONTROL "1.0.0 (2022-07-26)",dlg_about_lang_version_data,"Static",WS_CHILDWINDOW|WS_VISIBLE,147,150,198,9
+  CONTROL "lang status, error, etc",dlg_about_lang_status,"Static",WS_CHILDWINDOW|WS_VISIBLE|SS_CENTER,6,162,339,9
+  CONTROL "Close",dlg_about_close,"Button",WS_CHILDWINDOW|WS_VISIBLE|WS_TABSTOP|BS_DEFPUSHBUTTON,144,174,63,15
+  CONTROL "This RC-file is not used in the build\r\nand is only needed for development UI.\r\nThe build uses file xFasImport_Dialogs.asm",IDC_STC5,"Static",WS_CHILDWINDOW|WS_VISIBLE|SS_CENTER,0,177,141,24
+END
+
+dlg_dll DIALOGEX 0,0,519,183
+FONT 8,"Microsoft Sans Serif",400,0,204
+STYLE WS_POPUP|WS_VISIBLE|WS_CAPTION|WS_SYSMENU|DS_CENTER|DS_MODALFRAME|DS_3DLOOK
+EXSTYLE WS_EX_DLGMODALFRAME
+BEGIN
+  CONTROL "Cancel",dlg_dll_cancel,"Button",WS_CHILDWINDOW|WS_VISIBLE|WS_TABSTOP,9,162,111,15
+  CONTROL "Load .fas file",dlg_dll_load,"Button",WS_CHILDWINDOW|WS_VISIBLE|WS_TABSTOP,396,162,111,15
+  CONTROL "",dlg_dll_list,"SysListView32",WS_CHILDWINDOW|WS_VISIBLE|WS_TABSTOP|LVS_SHOWSELALWAYS|LVS_SINGLESEL|LVS_REPORT,9,9,498,144,WS_EX_CLIENTEDGE
+  CONTROL "This RC-file is not used in the build\r\nand is only needed for development UI.\r\nThe build uses file xFasImport_Dialogs.asm",IDC_STC4,"Static",WS_CHILDWINDOW|WS_VISIBLE|SS_CENTER,169,156,168,24
+END
+
+dlg_filetest DIALOGEX 0,0,594,228
+FONT 8,"Microsoft Sans Serif",0,0,0
+STYLE WS_POPUP|WS_VISIBLE|WS_CAPTION|WS_SYSMENU|DS_CENTER|DS_MODALFRAME|DS_3DLOOK
+EXSTYLE WS_EX_DLGMODALFRAME
+BEGIN
+  CONTROL "",dlg_filetest_list,"SysListView32",WS_CHILDWINDOW|WS_VISIBLE|WS_TABSTOP|LVS_SHOWSELALWAYS|LVS_SINGLESEL|LVS_REPORT,9,9,576,189,WS_EX_CLIENTEDGE
+  CONTROL "Close",dlg_filetest_close,"Button",WS_CHILDWINDOW|WS_VISIBLE|WS_TABSTOP,474,207,111,15
+  CONTROL "This RC-file is not used in the build\r\nand is only needed for development UI.\r\nThe build uses file xFasImport_Dialogs.asm",IDC_STC6,"Static",WS_CHILDWINDOW|WS_VISIBLE|SS_CENTER,216,204,168,24
+END
+
