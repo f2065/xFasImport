@@ -1,6 +1,3 @@
-#define dlg_cfg0a 1101
-#define IDC_STC1 1501
-#define IDC_STC2 1601
 #define dlg_settings 500
 #define dlg_settings_codepage_info 501
 #define dlg_settings_codepage_select 502
@@ -23,7 +20,6 @@
 #define dlg_settings_OFN_force 522
 #define dlg_settings_ok 506
 #define dlg_settings_cancel 507
-#define IDC_STC3 521
 #define dlg_about 1000
 #define dlg_about_version 1006
 #define dlg_about_desc1 1005
@@ -43,16 +39,13 @@
 #define dlg_about_lang_version_data 1018
 #define dlg_about_lang_status 1019
 #define dlg_about_close 1001
-#define IDC_STC5 1012
 #define dlg_dll 1100
 #define dlg_dll_cancel 1102
 #define dlg_dll_load 1103
 #define dlg_dll_list 1101
-#define IDC_STC4 1104
 #define dlg_filetest 1200
 #define dlg_filetest_list 1202
 #define dlg_filetest_close 1203
-#define IDC_STC6 1201
 
 dlg_settings DIALOGEX 0,0,396,249
 FONT 8,"Microsoft Sans Serif",400,0,204
@@ -80,7 +73,7 @@ BEGIN
   CONTROL "Always use the file selection dialog (otherwise, search by mask first)",dlg_settings_OFN_force,"Button",WS_CHILDWINDOW|WS_VISIBLE|WS_TABSTOP|BS_AUTOCHECKBOX,12,189,372,12
   CONTROL "OK",dlg_settings_ok,"Button",WS_CHILDWINDOW|WS_VISIBLE|WS_TABSTOP|BS_DEFPUSHBUTTON,91,216,72,15
   CONTROL "Cancel",dlg_settings_cancel,"Button",WS_CHILDWINDOW|WS_VISIBLE|WS_TABSTOP,232,216,72,15
-  CONTROL "This RC-file is not used in the build and is only needed for development UI.\r\nThe build uses file xFasImport_Dialogs.asm",IDC_STC3,"Static",WS_CHILDWINDOW|WS_VISIBLE|SS_CENTER,3,231,390,18
+  CONTROL "This RC-file is not used in the build and is only needed for development UI.\r\nThe build uses file xFasImport_Dialogs.asm",-1,"Static",WS_CHILDWINDOW|WS_VISIBLE|SS_CENTER,3,231,390,18
 END
 
 dlg_about DIALOGEX 0,0,351,201
@@ -91,11 +84,11 @@ BEGIN
   CONTROL "xFasImport v.1.0.0 (2022-07-19)",dlg_about_version,"Static",WS_CHILDWINDOW|WS_VISIBLE|SS_CENTER,6,6,339,12
   CONTROL "(english always) Plugin for importing debug information from flat assembler into x64dbg (from .fas file)",dlg_about_desc1,"Static",WS_CHILDWINDOW|WS_VISIBLE|SS_CENTER,6,18,339,12
   CONTROL "Author",dlg_about_author,"Static",WS_CHILDWINDOW|WS_VISIBLE|SS_RIGHT,6,33,138,12
-  CONTROL "<a>https://f2065.ru</a> <a>support@f2065.ru</a>",dlg_about_author_url,"SysLink",WS_CHILDWINDOW|WS_VISIBLE|LWS_TRANSPARENT,147,33,153,12
+  CONTROL "<a>https://f2065.ru</a> <a>support@f2065.ru</a>",dlg_about_author_url,"SysLink",WS_CHILDWINDOW|WS_VISIBLE,147,33,153,12
   CONTROL "Sources",dlg_about_sources,"Static",WS_CHILDWINDOW|WS_VISIBLE|SS_RIGHT,6,45,138,12
-  CONTROL "<a>https://github.com/f2065/xFasImport</a>",dlg_about_sources_url,"SysLink",WS_CHILDWINDOW|WS_VISIBLE|LWS_TRANSPARENT,147,45,153,9
+  CONTROL "<a>https://github.com/f2065/xFasImport</a>",dlg_about_sources_url,"SysLink",WS_CHILDWINDOW|WS_VISIBLE,147,45,153,9
   CONTROL "Forum",dlg_about_forum,"Static",WS_CHILDWINDOW|WS_VISIBLE|SS_RIGHT,6,57,138,12
-  CONTROL "<a>https://board.flatassembler.net</a>",dlg_about_forum_url,"SysLink",WS_CHILDWINDOW|WS_VISIBLE|LWS_TRANSPARENT,147,57,153,12
+  CONTROL "<a>https://board.flatassembler.net</a>",dlg_about_forum_url,"SysLink",WS_CHILDWINDOW|WS_VISIBLE,147,57,153,12
   CONTROL "(localization) Plugin for importing debug information from flat assembler into x64dbg (from .fas file)",dlg_about_desc2,"Static",WS_CHILDWINDOW|WS_VISIBLE|SS_CENTER,6,75,339,9
   CONTROL "To generate debug info (.fas file):\r\nfor fasm.exe, use the –s switch,\r\nfor fasmw.exe, use the Build symbols (Ctrl+F8) command.",dlg_about_help_fas,"Static",WS_CHILDWINDOW|WS_VISIBLE|SS_CENTER,6,87,339,27
   CONTROL "System language code",dlg_about_langcode,"Static",WS_CHILDWINDOW|WS_VISIBLE|SS_RIGHT,6,126,138,9
@@ -106,7 +99,7 @@ BEGIN
   CONTROL "1.0.0 (2022-07-26)",dlg_about_lang_version_data,"Static",WS_CHILDWINDOW|WS_VISIBLE,147,150,198,9
   CONTROL "lang status, error, etc",dlg_about_lang_status,"Static",WS_CHILDWINDOW|WS_VISIBLE|SS_CENTER,6,162,339,9
   CONTROL "Close",dlg_about_close,"Button",WS_CHILDWINDOW|WS_VISIBLE|WS_TABSTOP|BS_DEFPUSHBUTTON,144,174,63,15
-  CONTROL "This RC-file is not used in the build\r\nand is only needed for development UI.\r\nThe build uses file xFasImport_Dialogs.asm",IDC_STC5,"Static",WS_CHILDWINDOW|WS_VISIBLE|SS_CENTER,0,177,141,24
+  CONTROL "This RC-file is not used in the build\r\nand is only needed for development UI.\r\nThe build uses file xFasImport_Dialogs.asm",-1,"Static",WS_CHILDWINDOW|WS_VISIBLE|SS_CENTER,0,177,141,24
 END
 
 dlg_dll DIALOGEX 0,0,519,183
@@ -117,7 +110,7 @@ BEGIN
   CONTROL "Cancel",dlg_dll_cancel,"Button",WS_CHILDWINDOW|WS_VISIBLE|WS_TABSTOP,9,162,111,15
   CONTROL "Load .fas file",dlg_dll_load,"Button",WS_CHILDWINDOW|WS_VISIBLE|WS_TABSTOP,396,162,111,15
   CONTROL "",dlg_dll_list,"SysListView32",WS_CHILDWINDOW|WS_VISIBLE|WS_TABSTOP|LVS_SHOWSELALWAYS|LVS_SINGLESEL|LVS_REPORT,9,9,498,144,WS_EX_CLIENTEDGE
-  CONTROL "This RC-file is not used in the build\r\nand is only needed for development UI.\r\nThe build uses file xFasImport_Dialogs.asm",IDC_STC4,"Static",WS_CHILDWINDOW|WS_VISIBLE|SS_CENTER,169,156,168,24
+  CONTROL "This RC-file is not used in the build\r\nand is only needed for development UI.\r\nThe build uses file xFasImport_Dialogs.asm",-1,"Static",WS_CHILDWINDOW|WS_VISIBLE|SS_CENTER,169,156,168,24
 END
 
 dlg_filetest DIALOGEX 0,0,594,228
@@ -127,6 +120,6 @@ EXSTYLE WS_EX_DLGMODALFRAME
 BEGIN
   CONTROL "",dlg_filetest_list,"SysListView32",WS_CHILDWINDOW|WS_VISIBLE|WS_TABSTOP|LVS_SHOWSELALWAYS|LVS_SINGLESEL|LVS_REPORT,9,9,576,189,WS_EX_CLIENTEDGE
   CONTROL "Close",dlg_filetest_close,"Button",WS_CHILDWINDOW|WS_VISIBLE|WS_TABSTOP,474,207,111,15
-  CONTROL "This RC-file is not used in the build\r\nand is only needed for development UI.\r\nThe build uses file xFasImport_Dialogs.asm",IDC_STC6,"Static",WS_CHILDWINDOW|WS_VISIBLE|SS_CENTER,216,204,168,24
+  CONTROL "This RC-file is not used in the build\r\nand is only needed for development UI.\r\nThe build uses file xFasImport_Dialogs.asm",-1,"Static",WS_CHILDWINDOW|WS_VISIBLE|SS_CENTER,216,204,168,24
 END
 

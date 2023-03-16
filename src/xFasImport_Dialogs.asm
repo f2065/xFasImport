@@ -33,11 +33,11 @@
 	dialogitem "Static","xFasImport v.1.0.0 (2022-07-19)",dlg_about_version,6,6,339,12,WS_CHILDWINDOW or WS_VISIBLE or SS_CENTER
 	dialogitem "Static","Plugin for importing debug information from flat assembler into x64dbg (from .fas file)",dlg_about_desc1,6,18,339,12,WS_CHILDWINDOW or WS_VISIBLE or SS_CENTER
 	dialogitem "Static","Author",dlg_about_author,6,33,138,12,WS_CHILDWINDOW or WS_VISIBLE or SS_RIGHT
-	dialogitem "SysLink","dlg_about_author_url",dlg_about_author_url,147,33,153,12,WS_CHILDWINDOW or WS_VISIBLE or LWS_TRANSPARENT
+	dialogitem "SysLink","dlg_about_author_url",dlg_about_author_url,147,33,153,12,WS_CHILDWINDOW or WS_VISIBLE
 	dialogitem "Static","Sources",dlg_about_sources,6,45,138,12,WS_CHILDWINDOW or WS_VISIBLE or SS_RIGHT
-	dialogitem "SysLink","dlg_about_sources_url",dlg_about_sources_url,147,45,153,9,WS_CHILDWINDOW or WS_VISIBLE or LWS_TRANSPARENT
+	dialogitem "SysLink","dlg_about_sources_url",dlg_about_sources_url,147,45,153,9,WS_CHILDWINDOW or WS_VISIBLE
 	dialogitem "Static","Forum",dlg_about_forum,6,57,138,12,WS_CHILDWINDOW or WS_VISIBLE or SS_RIGHT
-	dialogitem "SysLink","dlg_about_forum_url",dlg_about_forum_url,147,57,153,12,WS_CHILDWINDOW or WS_VISIBLE or LWS_TRANSPARENT
+	dialogitem "SysLink","dlg_about_forum_url",dlg_about_forum_url,147,57,153,12,WS_CHILDWINDOW or WS_VISIBLE
 	dialogitem "Static","dlg_about_desc2",dlg_about_desc2,6,75,339,9,WS_CHILDWINDOW or WS_VISIBLE or SS_CENTER
 	dialogitem "Static","dlg_about_help_fas",dlg_about_help_fas,6,87,339,27,WS_CHILDWINDOW or WS_VISIBLE or SS_CENTER
 	dialogitem "Static","System language code",dlg_about_langcode,6,126,138,9,WS_CHILDWINDOW or WS_VISIBLE or SS_RIGHT
