@@ -277,7 +277,7 @@ text_dlg_about_desc1 du "Plugin for importing debug information from flat assemb
 var_dlg_about_author du "dlg_about_author",0
 text_dlg_about_author_en du "Author",0
 align memsize
-table_author_url dd link_author_url1, link_author_url2
+table_author_url DWORD_PTR link_author_url1, link_author_url2
 text_dlg_about_author_url du "<a>f2065.ru</a>  <a>support@f2065.ru</a>",0
 link_author_url1 db "https:/f2065.ru",0
 if memsize = 4
@@ -289,14 +289,14 @@ end if
 var_dlg_about_sources du "dlg_about_sources",0
 text_dlg_about_sources_en du "Sources",0
 align memsize
-table_sources_url dd link_sources_url1
+table_sources_url DWORD_PTR link_sources_url1
 text_dlg_about_sources_url du "<a>https://github.com/f2065/xFasImport</a>",0
 link_sources_url1 db "https://github.com/f2065/xFasImport",0
 
 var_dlg_about_forum du "dlg_about_forum",0
 text_dlg_about_forum_en du "Forum",0
 align memsize
-table_forum_url dd link_forum_url1
+table_forum_url DWORD_PTR link_forum_url1
 text_dlg_about_forum_url du "<a>https://board.flatassembler.net</a>",0
 link_forum_url1 db "https://board.flatassembler.net/topic.php?t=22388",0
 
