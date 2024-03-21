@@ -90,7 +90,7 @@ BEGIN
   CONTROL "Forum",dlg_about_forum,"Static",WS_CHILDWINDOW|WS_VISIBLE|SS_RIGHT,6,57,138,12
   CONTROL "<a>https://board.flatassembler.net</a>",dlg_about_forum_url,"SysLink",WS_CHILDWINDOW|WS_VISIBLE,147,57,153,12
   CONTROL "(localization) Plugin for importing debug information from flat assembler into x64dbg (from .fas file)",dlg_about_desc2,"Static",WS_CHILDWINDOW|WS_VISIBLE|SS_CENTER,6,75,339,9
-  CONTROL "To generate debug info (.fas file):\r\nfor fasm.exe, use the –s switch,\r\nfor fasmw.exe, use the Build symbols (Ctrl+F8) command.",dlg_about_help_fas,"Static",WS_CHILDWINDOW|WS_VISIBLE|SS_CENTER,6,87,339,27
+  CONTROL "To generate debug info (.fas file):\r\nfor fasm.exe, use the -s switch,\r\nfor fasmw.exe, use the Build symbols (Ctrl+F8) command.",dlg_about_help_fas,"Static",WS_CHILDWINDOW|WS_VISIBLE|SS_CENTER,6,87,339,27
   CONTROL "System language code",dlg_about_langcode,"Static",WS_CHILDWINDOW|WS_VISIBLE|SS_RIGHT,6,126,138,9
   CONTROL "ru",dlg_about_langcode_data,"Static",WS_CHILDWINDOW|WS_VISIBLE,147,126,198,9
   CONTROL "Translation author",dlg_about_lang_author,"Static",WS_CHILDWINDOW|WS_VISIBLE|SS_RIGHT,6,138,138,9
