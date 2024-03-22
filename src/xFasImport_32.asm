@@ -22,8 +22,8 @@ memsize = 4
 
 ; plugin version
 __MAJOR_VERSION equ 1
-__MINOR_VERSION equ 1
-__RELEASE_NUM equ 1
+__MINOR_VERSION equ 2
+__RELEASE_NUM equ 0
 __BUILD_NUM equ __build_counter_int__
 
 stringify_equ verA,__MAJOR_VERSION

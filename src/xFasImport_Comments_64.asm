@@ -13,6 +13,7 @@ locals
  flag_skip_export_TEXT rq 1
  AddrInfo_address rq 1
  buffer_comment sized db MAX_COMMENT_SIZE+8 dup (?)
+ buffer_comment_esc sized db MAX_COMMENT_SIZE+8 dup (?)
  buffer_label sized db MAX_LABEL_SIZE+8 dup (?)
  text_buff_temp sized dw MAX_COMMENT_SIZE+500 dup (?)
  tab_pos1 rq 1
@@ -162,7 +163,10 @@ endl
 	call	.get_comment_value
 	cmp	[flag_skip_export_TEXT], 0
 	jnz	.skip_line
-	lea	rdx, [buffer_comment]
+	lea	rcx, [buffer_comment]
+	lea	rdx, [buffer_comment_esc]
+	stdcall	escaping_string_utf8, rcx, rdx, MAX_COMMENT_SIZE ; .in_text, .out_text, .out_max_size
+	lea	rdx, [buffer_comment_esc]
 	cmp	[config_flag_comments_manual], 0
 	je	.setA
 	cinvoke	DbgSetCommentAt, [AddrInfo_address], rdx

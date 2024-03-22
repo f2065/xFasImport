@@ -812,3 +812,70 @@ proc prepare_fas_file
 .t_prepare_fas_file du "prepare_fas_file",0
 endp
 
+
+
+proc escaping_string_utf8, .in_text, .out_text, .out_max_size
+	push	rsi
+	push	rdi
+
+	mov	rsi, rcx ; [.in_text]
+	mov	rdi, rdx ; [.out_text]
+	mov	rcx, r8 ; [.out_max_size]
+	cld
+
+; Escaping strings for x64dbg:
+; if there is 0x7B in string, then all 0x7B and 0x7D (even the previous 0x7D) must be escaped.
+; if there is no 0x7B in string, then there is no need to escape anything.
+
+	mov	r9, rsi
+	xor	edx, edx ; found '{' status
+.loop_find_7B:
+	lodsb
+	cmp	al, '{'
+	je	.found_7B
+	test	al, al
+	jne	.loop_find_7B
+	jmp	.no_esc_mode
+.found_7B:
+	inc	edx ; found '{' status
+.no_esc_mode:
+	mov	rsi, r9 ; [.in_text]
+
+
+.loop_esc_char:
+	lodsb
+	cmp	al, '{'
+	jne	.norm1
+	cmp	ecx, 3
+	jb	.EOL
+	stosb
+	stosb
+	sub	ecx, 2
+	jmp	.loop_esc_char
+
+.norm1:	cmp	al, '}'
+	jne	.norm2
+	test	edx, edx ; found '{' status
+	jz	.norm2
+	cmp	ecx, 3
+	jb	.EOL
+	stosb
+	stosb
+	sub	ecx, 2
+	jmp	.loop_esc_char
+	
+.norm2:	cmp	ecx, 1
+	je	.EOL
+	stosb
+	dec	ecx
+	test	al, al
+	jz	.end
+	jmp	.loop_esc_char
+
+.EOL:	xor	eax, eax
+	stosb
+
+.end:	pop	rdi
+	pop	rsi
+	ret
+endp
