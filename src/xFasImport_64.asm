@@ -21,8 +21,8 @@ memsize = 8
  include 'build_datetime.inc'
 
 ; plugin version
-__MAJOR_VERSION equ 1
-__MINOR_VERSION equ 2
+__MAJOR_VERSION equ 2
+__MINOR_VERSION equ 0
 __RELEASE_NUM equ 0
 __BUILD_NUM equ __build_counter_int__
 
@@ -43,6 +43,7 @@ section '.code' code readable executable
  include 'xFasImport_FasFileTest_64.asm'
  include 'xFasImport_Settings_64.asm'
  include 'xFasImport_DLL_64.asm'
+ include 'xFasImport_Auto_64.asm'
  include 'xFasImport_About_64.asm'
  include 'xFasImport_Lang_64.asm'
 
@@ -136,7 +137,7 @@ frame
 @@:
 
 	cinvoke	GuiUpdateAllViews
-	
+
 endf
 	pop	r12
 	pop	rsi
@@ -184,7 +185,7 @@ frame
 	mov	[hwndDlg], rax
 	mov	eax, [rcx+PLUG_SETUPSTRUCT_64.hMenu]
 	mov	[hMenu], rax
-	
+
 	lea	rdi, [text_buff_temp]
 	mov	word [rdi], 0x003F
 	invoke	WideCharToMultiByte, CP_UTF8, 0, [menu_LoadMainSymbols], -1, rdi, sizeof.text_buff_temp, 0, 0
@@ -233,6 +234,7 @@ proc CBMENUENTRY c, cbType, cbInfo
 	ret
 .load_main:
 	stdcall	LoadFasSymbols, tDbgMainFileName
+	stdcall	update_status_for_autoload
 	jmp	.CBMENUENTRY_ret
 .load_dll:
 	stdcall	RunDllDlg
@@ -257,6 +259,34 @@ endf
 	mov	eax, 1
 	ret
 endp;CBINITDEBUG
+
+proc CBCREATEPROCESS c, cbType, cbInfo
+	stdcall autoload_fas_file
+	mov	eax, 1
+	ret
+endp;CBCREATEPROCESS
+
+proc CBLOADDB c, cbType, cbInfo
+
+	cmp	[rdx+PLUG_CB_LOADSAVEDB_64.loadSaveType], PLUG_DB_LOADSAVE_DATA
+	je	.m1
+	cmp	[rdx+PLUG_CB_LOADSAVEDB_64.loadSaveType], PLUG_DB_LOADSAVE_ALL
+	jne	.m0
+.m1:	stdcall	load_xFasImport_data, [rdx+PLUG_CB_LOADSAVEDB_64.root]
+.m0:	mov	eax, 1
+	ret
+endp;CBLOADDB
+
+proc CBSAVEDB c, cbType, cbInfo
+
+	cmp	[rdx+PLUG_CB_LOADSAVEDB_64.loadSaveType], PLUG_DB_LOADSAVE_DATA
+	je	.m1
+	cmp	[rdx+PLUG_CB_LOADSAVEDB_64.loadSaveType], PLUG_DB_LOADSAVE_ALL
+	jne	.m0
+.m1:	stdcall	save_xFasImport_data, [rdx+PLUG_CB_LOADSAVEDB_64.root]
+.m0:	mov	eax, 1
+	ret
+endp;CBSAVEDB
 
 proc CBSTOPDEBUG c, cbType, cbInfo
 	stdcall	kill_dll_list
@@ -303,7 +333,8 @@ section '.idata' import data readable writeable
 	comdlg,'comdlg32.dll',\
 	shell,'shell32.dll',\
 	x64dbg,'x64dbg.dll',\
-	x64bridge,'x64bridge.dll'
+	x64bridge,'x64bridge.dll',\
+	jansson,'jansson.dll'
 
  import kernel,\
 	CloseHandle,'CloseHandle',\
@@ -398,6 +429,13 @@ section '.idata' import data readable writeable
 	DbgGetCommentAt,'DbgGetCommentAt',\
 	DbgSetCommentAt,'DbgSetCommentAt'
 
+import jansson,\
+	json_object,'json_object',\
+	json_object_get,'json_object_get',\
+	json_object_set_new,'json_object_set_new',\
+	json_integer,'json_integer',\
+	json_integer_value,'json_integer_value'
+
 
 section '.edata' export data readable
  export 'xFasImport.dp64',\
@@ -406,6 +444,9 @@ section '.edata' export data readable
 	plugstop,'plugstop',\
 	CBMENUENTRY,'CBMENUENTRY',\
 	CBINITDEBUG,'CBINITDEBUG',\
+	CBLOADDB,'CBLOADDB',\
+	CBSAVEDB,'CBSAVEDB',\
+	CBCREATEPROCESS,'CBCREATEPROCESS',\
 	CBSTOPDEBUG,'CBSTOPDEBUG',\
 	CBLOADDLL,'CBLOADDLL',\
 	CBUNLOADDLL,'CBUNLOADDLL'

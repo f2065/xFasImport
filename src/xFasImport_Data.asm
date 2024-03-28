@@ -18,6 +18,9 @@ t_Setting_tabsize5 db "tabsize5",0
 t_Setting_flag_labels_manual db "flag_labels_manual",0
 t_Setting_flag_comments_manual db "flag_comments_manual",0
 t_Setting_OFN_force db "OFN_force",0
+t_Setting_autoload_file db "autoload_file",0
+t_DataBase_time_image db "time_image",0
+t_DataBase_time_fas db "time_fas",0
 
 align memsize
 
@@ -36,6 +39,10 @@ config_tabsize5 DWORD_PTR ?
 config_flag_labels_manual DWORD_PTR ?
 config_flag_comments_manual DWORD_PTR ?
 config_OFN_force DWORD_PTR ?
+config_autoload_file DWORD_PTR ?
+
+database_time_image DWORD_PTR ?
+database_time_fas DWORD_PTR ?
 
 hInstance DWORD_PTR ?
 pluginHandle DWORD_PTR ?
@@ -45,10 +52,11 @@ hMenu DWORD_PTR ?
 hCodePageComboBox DWORD_PTR ?
 imported_labels_counter DWORD_PTR ?
 imported_comments_counter DWORD_PTR ?
- 
+
 pFasFile DWORD_PTR ?
 szFasFile DWORD_PTR ?
 timeFasFile DWORD_PTR ?
+timeImageFile DWORD_PTR ?
 incorrect_time_flag DWORD_PTR ?
 address_string_table DWORD_PTR ?
 address_symbol_table DWORD_PTR ?

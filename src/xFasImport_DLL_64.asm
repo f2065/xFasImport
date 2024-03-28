@@ -6,18 +6,18 @@ frame
 	invoke	DialogBoxParamA, [hInstance], ID_DLG_DLL, [hwndDlg], DialogProcDll, 0
 	test	rax, rax
 	js	.m0
-	
+
 	mov	ecx, sizeof.X_DLL_LIST
 	mul	rcx
 	mov	rdi, rax
 	invoke	LocalLock, [hDllList]
 	add	rdi, rax
-	
+
 	lea	rcx, [rdi+X_DLL_LIST.Image]
 	stdcall	LoadFasSymbols, rcx
 
 	invoke	LocalUnlock, [hDllList]
-	
+
 .m0:
 endf
 	pop	rdi
@@ -59,7 +59,7 @@ endl
 	invoke	SendMessageW, [hListViewDLL], LVM_GETNEXTITEM, -1, LVNI_SELECTED
 	test	rax, rax
 	js	.dll_cancel
-	
+
 	lea	rsi, [lvi]
 	mov	[lvi.mask], LVIF_PARAM
 	mov	[lvi.iItem], eax
@@ -169,7 +169,7 @@ frame
 	mov	rbx, rax
 	lea	rdi, [lvi]
 	mov	[lvi.iItem], 0
-	
+
 
 .list_loop:
 	mov	eax, [lvi.iItem]
@@ -207,10 +207,10 @@ frame
 	mov	[lvi.pszText], rax
 	mov	[lvi.iSubItem], 3
 	invoke	SendMessageW, r12, LVM_SETITEMW, 0, rdi
-	
+
 	inc	[lvi.iItem]
 	jmp	.list_loop
-	
+
 .exit_loop:
 	invoke	LocalUnlock, [hDllList]
 
@@ -291,7 +291,7 @@ endl
 	mov	rdi, rax
 	invoke	LocalLock, [hDllList]
 	add	rdi, rax
-	
+
 	mov	rcx, [rsi+PLUG_CB_LOADDLL_64.modInfo] ; IMAGEHLP_MODULE64
 	mov	rax, [rcx+IMAGEHLP_MODULE64.BaseOfImage]
 	mov	[rdi+X_DLL_LIST.BaseOfImage], rax
@@ -342,9 +342,9 @@ endl
 .time_skip:
 
 	invoke	LocalUnlock, [hDllList]
-	
+
 	inc	[itemsDllList]
-	
+
 .m0:
 	pop	r12
 	pop	rbx
@@ -381,7 +381,7 @@ frame
 	invoke	PathAddBackslashW, rsi
 	invoke	lstrlenW, rsi
 	mov	[len_foldername], rax
-	
+
 	invoke	LocalLock, [hDllList]
 	mov	rdi, rax
 
@@ -392,14 +392,14 @@ frame
 	mov	eax, sizeof.X_DLL_LIST
 	mul	rbx
 	lea	rcx, [rax+rdi+X_DLL_LIST.Image]
-	
+
 	invoke	StrCmpNIW, rcx, rsi, [len_foldername]
 	test	rax, rax
 	jz	.cont
 	cmp	[item_dll_list_helper], -1
 	jne	.end_double
 	mov	[item_dll_list_helper], rbx
-	
+
 .cont:	inc	rbx
 	jmp	.loop
 

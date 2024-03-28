@@ -1,10 +1,11 @@
 ﻿
-Updater
-Hide system dll
-Logo
-Obj-load COFF
-Manual load offsets
-Tips about fas-files
-Autoload all fas-file
-Remove old DB if chechsum incorrect
-Run from toolbar
+Development plan:
+1. Remove (optional) old DB if chechsum/timestamp incorrect;
+2. Run from toolbar (it has not yet been found how to display the plugin icon on the toolbar);
+3. Autoload fas-file for DLL;
+4. Updater;
+5. Hide system DLLs (in list for importing fas-file);
+6. Logo;
+7. Obj-load COFF;
+8. Manual load offsets;
+9. Tips about fas-files;

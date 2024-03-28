@@ -29,9 +29,9 @@ endl
 	cinvoke	BridgeSettingGet, .t_Engine, .t_Language, edi
 	test	eax, eax
 	jz	.rd_err
-	
+
 	invoke	MultiByteToWideChar, CP_UTF8, 0, edi, -1, esi, (sizeof.currentLocale)/2
-	
+
 	.rd_err:
 	invoke	LocalFree, edi
 
@@ -47,10 +47,25 @@ endl
 
 	lea	ebx, [lang_filename]
 	cinvoke	wnsprintfW, ebx, MAX_PATH, .t_langfile_mask, edi, esi
-	
+
 	stdcall	is_file_exists, ebx
 	test	eax, eax
 	jnz	.load_file_lng
+
+	invoke	lstrlenW, esi ; if 'xx_XX' is not found - search for 'xx'
+	cmp	eax, 5
+	jne	.no_file
+	cmp	word [esi+4], 0x5F ; '_'
+	jne	.no_file
+	mov	word [esi+4], 0
+
+	cinvoke	wnsprintfW, ebx, MAX_PATH, .t_langfile_mask, edi, esi
+
+	stdcall	is_file_exists, ebx
+	test	eax, eax
+	jnz	.load_file_lng
+
+.no_file:
 	lea	esi, [text_buff_temp]
 	cinvoke	wnsprintfW, esi, (sizeof.text_buff_temp)/2, .t_langfile_notfound, ebx
 	stdcall	LogPrintW, esi
@@ -184,10 +199,10 @@ proc fast_StrStrNW, .mem_start, .name, .size_mem
 	mov	ebx, esi
 	mov	ecx, [.size_mem]
 	add	ecx, esi
-	
+
 .fs1:	mov	edi, [.name]
 	mov	esi, ebx
-	
+
 .fs3:	cmp	esi, ecx
 	jae	.fs_end
 	mov	ax, [esi]
@@ -196,7 +211,7 @@ proc fast_StrStrNW, .mem_start, .name, .size_mem
 	inc	esi
 	inc	esi
 	jmp	.fs3
-	
+
 .fs2:	lea	ebx, [esi+2]
 
 .fs4:	inc	edi
@@ -224,7 +239,7 @@ proc fast_StrStrNW, .mem_start, .name, .size_mem
 	pop	esi
 	pop	ebx
 	ret
-	
+
 endp
 
 

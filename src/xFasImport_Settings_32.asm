@@ -75,6 +75,8 @@ proc DialogProcSettings, .hWnd, .uMsg, .wParam, .lParam
 	mov	[config_flag_comments_manual], eax
 	invoke	IsDlgButtonChecked, [.hWnd], dlg_settings_OFN_force
 	mov	[config_OFN_force], eax
+	invoke	IsDlgButtonChecked, [.hWnd], dlg_settings_autoload_file
+	mov	[config_autoload_file], eax
 
 	stdcall	save_settings
 
@@ -91,7 +93,7 @@ proc DialogProcSettings, .hWnd, .uMsg, .wParam, .lParam
 	invoke	SetDlgItemInt, [.hWnd], dlg_settings_tabsize5, 8*5, 0
 
 	jmp	.wp_end
-	
+
 .wp_init:
 
 	invoke	SetWindowTextW, [.hWnd], [title_dlg_settings]
@@ -114,6 +116,7 @@ proc DialogProcSettings, .hWnd, .uMsg, .wParam, .lParam
 	invoke	CheckDlgButton, [.hWnd], dlg_settings_flag_MANUAL_labels, [config_flag_labels_manual]
 	invoke	CheckDlgButton, [.hWnd], dlg_settings_flag_MANUAL_comments, [config_flag_comments_manual]
 	invoke	CheckDlgButton, [.hWnd], dlg_settings_OFN_force, [config_OFN_force]
+	invoke	CheckDlgButton, [.hWnd], dlg_settings_autoload_file, [config_autoload_file]
 
 	stdcall	set_lng_dialog, [.hWnd], table_lang_dlg_settings
 
@@ -134,7 +137,7 @@ proc DialogProcSettings, .hWnd, .uMsg, .wParam, .lParam
 	invoke	EnableWindow, eax, ebx
 	test	ebx, ebx
 	jz	@f
-	
+
 	invoke	IsDlgButtonChecked, [.hWnd], dlg_settings_remove_spaces
 	test	eax, eax
 	setz	bl
@@ -402,6 +405,14 @@ endl
 	mov	eax, [edi]
 	mov	[config_OFN_force], eax
 
+	cinvoke	BridgeSettingGetUint, t_SettingSection, t_Setting_autoload_file, edi
+	test	eax, eax
+	jnz	@f
+	mov	dword [edi], 0
+	@@:
+	mov	eax, [edi]
+	mov	[config_autoload_file], eax
+
 
 	pop	edi
 	ret
@@ -425,6 +436,7 @@ proc save_settings
 	cinvoke	BridgeSettingSetUint, t_SettingSection, t_Setting_flag_labels_manual, [config_flag_labels_manual]
 	cinvoke	BridgeSettingSetUint, t_SettingSection, t_Setting_flag_comments_manual, [config_flag_comments_manual]
 	cinvoke	BridgeSettingSetUint, t_SettingSection, t_Setting_OFN_force, [config_OFN_force]
+	cinvoke	BridgeSettingSetUint, t_SettingSection, t_Setting_autoload_file, [config_autoload_file]
 
 	ret
 endp
@@ -474,7 +486,7 @@ proc tabsize_check_ranges
 	mov	eax, 92
 	@@:
 	mov	[config_tabsize3], eax
-	
+
 	mov	edx, eax
 	mov	eax, [config_tabsize4]
 	test	eax, eax

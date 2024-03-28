@@ -176,6 +176,7 @@ table_lang_dlg_settings:
 	DWORD_PTR text_dlg_settings_flag_MANUAL_comments_en, var_dlg_settings_flag_MANUAL_comments, dlg_settings_flag_MANUAL_comments
 	DWORD_PTR text_dlg_settings_flags_info_en, var_dlg_settings_flags_info, dlg_settings_flags_info
 	DWORD_PTR text_dlg_settings_OFN_force_en, var_dlg_settings_OFN_force, dlg_settings_OFN_force
+	DWORD_PTR text_dlg_settings_autoload_file_en, var_dlg_settings_autoload_file, dlg_settings_autoload_file
 	DWORD_PTR text_dlg_ok_en, var_dlg_ok, dlg_settings_ok
 	DWORD_PTR text_dlg_cancel_en, var_dlg_cancel, dlg_settings_cancel
 	DWORD_PTR 0,0,0 ; end
@@ -218,7 +219,10 @@ var_dlg_settings_flags_info du "dlg_settings_flags_info",0
 text_dlg_settings_flags_info_en du "These options affect conflict situations when using other methods",13,10,"(from other plugins, manually, etc.) of adding labels and comments to the x64dbg database.",0
 
 var_dlg_settings_OFN_force du "dlg_settings_OFN_force",0
-text_dlg_settings_OFN_force_en du "Always use the file selection dialog (otherwise, search by mask first)",0
+text_dlg_settings_OFN_force_en du "Use the .fas-file selection dialog (otherwise, search by mask first)",0
+
+var_dlg_settings_autoload_file du "dlg_settings_autoload_file",0
+text_dlg_settings_autoload_file_en du "Automatically load .fas-file (for main process) if it has similar time and it has not been imported before",0
 
 var_dlg_ok du "dlg_ok",0
 text_dlg_ok_en du "OK",0

@@ -35,11 +35,11 @@ endl
 	mov	ecx, [eax+fsymbol.symb_name_string_offset]
 	btr	ecx, 31
 	add	ecx, [address_string_table]
-	push	ecx 
+	push	ecx
 	push	eax
 	invoke	lstrlenA, ecx
 	mov	edx, eax
-	pop	eax 
+	pop	eax
 	pop	ecx
 	jmp	.addrinfoset
 

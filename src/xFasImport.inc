@@ -4,9 +4,9 @@ MENU_LoadDll = 2
 MENU_FasFileTest = 3
 MENU_Settings = 4
 MENU_About = 5
- 
+
 ID_ICON_MAIN = 101
- 
+
 ID_DLG_SETTINGS = 601
 dlg_settings_codepage_info = 602
 dlg_settings_codepage_select = 603
@@ -28,6 +28,7 @@ dlg_settings_flag_MANUAL_labels = 621
 dlg_settings_flag_MANUAL_comments = 622
 dlg_settings_flags_info = 623
 dlg_settings_OFN_force = 624
+dlg_settings_autoload_file = 625
 dlg_settings_ok = 650
 dlg_settings_cancel = 651
 

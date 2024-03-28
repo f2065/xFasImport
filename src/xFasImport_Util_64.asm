@@ -15,7 +15,7 @@ frame
 	add	rdx, rcx
 	dec	rdx
 	mov	rdi, rdx
-	
+
 	lea	rsi, [.t_mask_auto]
 	cmp	[config_flag_labels_manual], 0
 	je	.flg_A
@@ -23,7 +23,7 @@ frame
 	cinvoke	DbgClearLabelRange, rcx, rdx
 	jmp	.result
 .flg_A:	cinvoke	DbgClearAutoLabelRange, rcx, rdx
-	
+
 .result:
 	lea	rcx, [text_buffer]
 	cinvoke	wnsprintfW, rcx, (sizeof.text_buffer)/2, rsi, [current_base_addr], rdi
@@ -54,7 +54,7 @@ frame
 	add	rdx, rcx
 	dec	rdx
 	mov	rdi, rdx
-	
+
 	lea	rsi, [.t_mask_auto]
 	cmp	[config_flag_comments_manual], 0
 	je	.flg_A
@@ -62,7 +62,7 @@ frame
 	cinvoke	DbgClearCommentRange, rcx, rdx
 	jmp	.result
 .flg_A:	cinvoke	DbgClearAutoCommentRange, rcx, rdx
-	
+
 .result:
 	lea	rcx, [text_buffer]
 	cinvoke	wnsprintfW, rcx, (sizeof.text_buffer)/2, rsi, [current_base_addr], rdi
@@ -101,7 +101,7 @@ endp
 
 
 proc load_basepath_fileA_to_mem, .filenameA ; return - eax hMemory, edx size, ecx timecode. eax=0 - error
-locals 
+locals
  filenameW sized dw MAX_PATH dup (?)
  fullfilenameW sized dw MAX_PATH dup (?)
 endl
@@ -166,10 +166,11 @@ proc get_header_from_exe, .image
 	mov	r12, rcx ; .image
 
 	stdcall	load_file_to_mem, r12, -1 ; return - eax hMemory, edx size, ecx timecode. eax=0 - error
+	mov	[timeImageFile], rcx
 	test	rax, rax
 	jz	.m0
 	mov	rbx, rax
-	
+
 	mov	rax, [timeFasFile] ; FAS-file must be written within a few seconds after the EXE-file.
 	sub	rax, rcx
 	jc	.time_err
@@ -182,7 +183,7 @@ proc get_header_from_exe, .image
 
 	sub	rdx, memsize ; size.INT_PTR: 32=4, 64=8
 	jbe	.error_file
-	add	rdx, rax	
+	add	rdx, rax
 
 	lea	rcx, [rax + IMAGE_DOS_HEADER.e_lfanew]
 	cmp	rcx, rdx
@@ -343,7 +344,7 @@ frame
 
 	mov	rcx, qword [r12]
 	stdcall	convert_FILETIME_to_code, rcx
-	mov	rcx, rax
+	mov	rcx, rax ; timecode
 
 	mov	rdx, rsi ; szMem
 	mov	rax, rdi ; hMem
@@ -359,6 +360,7 @@ endf
 .load_err:
 	xor	eax, eax
 	xor	edx, edx
+	xor	ecx, ecx
 	jmp	.load_exit
 
 .t_load_file_to_mem du "load_file_to_mem",0
@@ -382,6 +384,36 @@ proc convert_FILETIME_to_code, .ftime
 	xor	edx, edx
 	mov	rcx, 10000000 ; 100nanosec
 	div	rcx
+	ret
+endp
+
+proc get_time_from_file_W, .filename
+locals
+ LastWriteTime dq ? ; FILETIME
+endl
+	push	rsi
+	push	rbx
+
+	invoke	CreateFileW, rcx, GENERIC_READ, FILE_SHARE_READ or FILE_SHARE_WRITE or FILE_SHARE_DELETE, 0, OPEN_EXISTING, 0, 0
+	cmp	eax, INVALID_HANDLE_VALUE
+	je	.no_info
+	mov	rbx, rax ; hFile
+	lea	rsi, [LastWriteTime]
+	xor	eax, eax
+	mov	qword [rsi], rax
+
+	invoke	GetFileTime, rbx, rax, rax, rsi
+	invoke	CloseHandle, rbx
+
+	stdcall	convert_FILETIME_to_code, qword [rsi]
+
+	jmp	.end
+
+.no_info:
+	xor	eax, eax
+
+.end:	pop	rbx
+	pop	rsi
 	ret
 endp
 
@@ -429,14 +461,14 @@ frame
 ;eax<0  jl
 ;eax<=0 jle
 ;eax=0  jz
-;eax<>0 jnz 
+;eax<>0 jnz
 	cinvoke	wnsprintfW, rdi, rsi, .MsgErr_mask2, szPLUGIN_NAME_W, r10
 	test	rax, rax
 	jle	.no_winapi
 	sub	rsi, rax
 	shl	rax, 1
 	add	rdi, rax
-	.no_winapi:	
+	.no_winapi:
 
 	mov	r10, [.processed_object]
 	test	r10, r10
@@ -458,7 +490,7 @@ frame
 	jle	.overbuffer
 	cinvoke	wnsprintfW, rdi, rsi, .MsgErr_mask5, szPLUGIN_NAME_W, r10
 	jmp	.message_ok
-	
+
 	.mode_error:
 	test	rsi, rsi
 	jle	.overbuffer
@@ -559,7 +591,7 @@ endf
 	pop	r12
 	pop	rbx
 	ret
-	
+
 .m0:
 
 	mov	dword [r12], 0x525245 ; "ERR",0
@@ -863,7 +895,7 @@ proc escaping_string_utf8, .in_text, .out_text, .out_max_size
 	stosb
 	sub	ecx, 2
 	jmp	.loop_esc_char
-	
+
 .norm2:	cmp	ecx, 1
 	je	.EOL
 	stosb

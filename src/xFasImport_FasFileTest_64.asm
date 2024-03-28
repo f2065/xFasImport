@@ -144,7 +144,7 @@ frame
 	mov	rbx, rax
 	lea	rdi, [lvi]
 	mov	[lvi.iItem], 0
-	
+
 
 .list_loop:
 	mov	eax, [lvi.iItem]
@@ -176,10 +176,10 @@ frame
 	mov	[lvi.pszText], rax
 	mov	[lvi.iSubItem], 3
 	invoke	SendMessageW, [hListViewFFT], LVM_SETITEMW, 0, rdi
-	
+
 	inc	[lvi.iItem]
 	jmp	.list_loop
-	
+
 .exit_loop:
 	invoke	LocalUnlock, [hFftList]
 
@@ -321,7 +321,7 @@ endl
 
 	lea	rcx, [rdi+X_FFT_LIST.data_fas]
 	invoke	lstrcpynW, rcx, rsi, MAX_PATH
-	
+
 	invoke	PathIsRelativeW, rsi
 	test	rax, rax
 	jnz	.m1
@@ -390,22 +390,22 @@ endl
 	mov	rax, [itemsFftList]
 	mov	[item_fft_list_helper], rax
 	mov	rdx, [msg_FasFileTest_listview_status_time]
-	jmp	.status_end		
+	jmp	.status_end
 .time_ok:
 	mov	rdx, [msg_FasFileTest_listview_status_ok]
 .status_end:
 	lea	rcx, [rdi+X_FFT_LIST.status_text]
-	invoke	lstrcpynW, rcx, rdx, 300 ; !!! size	
+	invoke	lstrcpynW, rcx, rdx, 300 ; !!! size
 
 .skip_item:
 	invoke	LocalUnlock, [hFftList]
-	
+
 	cmp	[flag_skip], 0
 	jnz	.m0
 	inc	[itemsFftList]
 
 .m0:
-	
+
 	pop	r12
 	pop	rbx
 	pop	rdi
@@ -419,7 +419,7 @@ endl
 	invoke	GetLastError
 	mov	rbx, rax
 
-	lea	rdi, [buffer_text_result]	
+	lea	rdi, [buffer_text_result]
 	lea	rsi, [buffer_text_error]
 	invoke	FormatMessageW, FORMAT_MESSAGE_IGNORE_INSERTS or FORMAT_MESSAGE_FROM_SYSTEM, 0, rbx, 0, rsi, (sizeof.buffer_text_error)/2, 0
 	test	rax, rax
@@ -451,13 +451,13 @@ endl
 	mov	eax, sizeof.X_FFT_LIST
 	mul	rbx
 	add	rax, rdi
-	
+
 	invoke	lstrcmpiW, rax, rsi
 	test	rax, rax
 	jz	.id1
 	inc	rbx
 	jmp	.id_loop
-	
+
 .id0:	xor	eax, eax
 	jmp	.id_exit
 .id1:	mov	eax, 1
@@ -543,7 +543,7 @@ frame
 
 	mov	edi, [rsi+preprocessed_line.offset_file_name]
 	stdcall	append_to_fft_list, rdi
-	
+
 .skip_line:
 	stdcall	get_next_preprocessed_source_item, rsi
 	mov	rsi, rax

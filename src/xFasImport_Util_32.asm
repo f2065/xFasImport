@@ -15,7 +15,7 @@ endl
 	add	edx, ecx
 	dec	edx
 	mov	edi, edx
-	
+
 	lea	esi, [.t_mask_auto]
 	cmp	[config_flag_labels_manual], 0
 	je	.flg_A
@@ -23,7 +23,7 @@ endl
 	cinvoke	DbgClearLabelRange, ecx, edx
 	jmp	.result
 .flg_A:	cinvoke	DbgClearAutoLabelRange, ecx, edx
-	
+
 .result:
 	lea	ecx, [text_buffer]
 	cinvoke	wnsprintfW, ecx, (sizeof.text_buffer)/2, esi, [current_base_addr], edi
@@ -54,7 +54,7 @@ endl
 	add	edx, ecx
 	dec	edx
 	mov	edi, edx
-	
+
 	lea	esi, [.t_mask_auto]
 	cmp	[config_flag_comments_manual], 0
 	je	.flg_A
@@ -62,7 +62,7 @@ endl
 	cinvoke	DbgClearCommentRange, ecx, edx
 	jmp	.result
 .flg_A:	cinvoke	DbgClearAutoCommentRange, ecx, edx
-	
+
 .result:
 	lea	ecx, [text_buffer]
 	cinvoke	wnsprintfW, ecx, (sizeof.text_buffer)/2, esi, [current_base_addr], edi
@@ -101,7 +101,7 @@ endp
 
 
 proc load_basepath_fileA_to_mem, .filenameA ; return - eax hMemory, edx size, ecx timecode. eax=0 - error
-locals 
+locals
  filenameW sized dw MAX_PATH dup (?)
  fullfilenameW sized dw MAX_PATH dup (?)
 endl
@@ -166,6 +166,7 @@ proc get_header_from_exe, .image
 
 
 	stdcall	load_file_to_mem, [.image], -1 ; return - eax hMemory, edx size, ecx timecode. eax=0 - error
+	mov	[timeImageFile], ecx
 	test	eax, eax
 	jz	.m0
 	mov	ebx, eax
@@ -182,7 +183,7 @@ proc get_header_from_exe, .image
 
 	sub	edx, memsize ; size.INT_PTR: 32=4, 64=8
 	jbe	.error_file
-	add	edx, eax	
+	add	edx, eax
 
 	lea	ecx, [eax + IMAGE_DOS_HEADER.e_lfanew]
 	cmp	ecx, edx
@@ -343,7 +344,7 @@ endl
 
 	lea	eax, [ftime]
 	stdcall	convert_FILETIME_to_code, eax
-	mov	ecx, eax
+	mov	ecx, eax ; timecode
 
 	mov	edx, esi ; szMem
 	mov	eax, edi ; hMem
@@ -359,6 +360,7 @@ endl
 .load_err:
 	xor	eax, eax
 	xor	edx, edx
+	xor	ecx, ecx
 	jmp	.load_exit
 
 .t_load_file_to_mem du "load_file_to_mem",0
@@ -382,6 +384,36 @@ proc convert_FILETIME_to_code, .ftime
 
 	mov	ecx, 10000000 ; 100nanosec
 	div	ecx
+	ret
+endp
+
+proc get_time_from_file_W, .filename
+locals
+ LastWriteTime dq ? ; FILETIME
+endl
+	push	esi
+	push	ebx
+
+	invoke	CreateFileW, [.filename], GENERIC_READ, FILE_SHARE_READ or FILE_SHARE_WRITE or FILE_SHARE_DELETE, 0, OPEN_EXISTING, 0, 0
+	cmp	eax, INVALID_HANDLE_VALUE
+	je	.no_info
+	mov	ebx, eax ; hFile
+	lea	esi, [LastWriteTime]
+	xor	eax, eax
+	mov	dword [esi], eax
+	mov	dword [esi+4], eax
+	invoke	GetFileTime, ebx, eax, eax, esi
+	invoke	CloseHandle, ebx
+
+	stdcall	convert_FILETIME_to_code, esi
+
+	jmp	.end
+
+.no_info:
+	xor	eax, eax
+
+.end:	pop	ebx
+	pop	esi
 	ret
 endp
 
@@ -429,7 +461,7 @@ endl
 ;eax<0  jl
 ;eax<=0 jle
 ;eax=0  jz
-;eax<>0 jnz 
+;eax<>0 jnz
 	cinvoke	wnsprintfW, edi, esi, .MsgErr_mask2, szPLUGIN_NAME_W, eax
 	test	eax, eax
 	jle	.no_winapi
@@ -592,7 +624,7 @@ endl
 	mov	eax, [hwndDlg]
 	mov	[ofn.hwndOwner], eax
 	mov	[ofn.lStructSize], sizeof.OPENFILENAME
-	
+
 	mov	word [text_buffer], 0
 	lea	edi, [text_buffer]
 	mov	[ofn.lpstrFilter], edi
@@ -632,7 +664,7 @@ endl
 	xor	eax, eax
 	jmp	.exit_EAX
 .buff_ok:
-	
+
 	mov	eax, [.fasfilename]
 	mov	[ofn.lpstrFile], eax
 	mov	[ofn.nMaxFile], MAX_PATH
@@ -678,7 +710,7 @@ endl
 	pop	esi
 	pop	ebx
 	ret
-	
+
 .ofn_read_FAS_type du "fas",0
 .ofn_read_ext_mask_fas du "*.fas",0
 .ofn_read_ext_mask_all du "*",0
@@ -863,7 +895,7 @@ proc escaping_string_utf8, .in_text, .out_text, .out_max_size
 	stosb
 	sub	ecx, 2
 	jmp	.loop_esc_char
-	
+
 .norm2:	cmp	ecx, 1
 	je	.EOL
 	stosb

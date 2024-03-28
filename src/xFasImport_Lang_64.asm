@@ -29,9 +29,9 @@ endl
 	cinvoke	BridgeSettingGet, .t_Engine, .t_Language, rdi
 	test	rax, rax
 	jz	.rd_err
-	
+
 	invoke	MultiByteToWideChar, CP_UTF8, 0, rdi, -1, rsi, (sizeof.currentLocale)/2
-	
+
 	.rd_err:
 	invoke	LocalFree, rdi
 
@@ -47,10 +47,25 @@ endl
 
 	lea	rbx, [lang_filename]
 	cinvoke	wnsprintfW, rbx, MAX_PATH, .t_langfile_mask, rdi, rsi
-	
+
 	stdcall	is_file_exists, rbx
 	test	rax, rax
 	jnz	.load_file_lng
+
+	invoke	lstrlenW, rsi ; if 'xx_XX' is not found - search for 'xx'
+	cmp	rax, 5
+	jne	.no_file
+	cmp	word [rsi+4], 0x5F ; '_'
+	jne	.no_file
+	mov	word [rsi+4], 0
+
+	cinvoke	wnsprintfW, rbx, MAX_PATH, .t_langfile_mask, rdi, rsi
+
+	stdcall	is_file_exists, rbx
+	test	rax, rax
+	jnz	.load_file_lng
+
+.no_file:
 	lea	rsi, [text_buff_temp]
 	cinvoke	wnsprintfW, rsi, (sizeof.text_buff_temp)/2, .t_langfile_notfound, rbx
 	stdcall	LogPrintW, rsi
@@ -97,7 +112,7 @@ endl
 	call	.set_EOL_text
 	lea	rsi, [table_lang_dlg_FasFileTest]
 	call	.set_EOL_text
-	
+
 	mov	[lang_file_load], 1
 
 .m0:
@@ -179,15 +194,15 @@ proc fast_StrStrNW, .mem_start, .name, .size_mem
 	push	rsi
 	push	rdi
 	push	r12
-	
+
 	mov	rsi, rcx ; [.mem_start]
 	mov	rbx, rsi
 	mov	rcx, r8 ; [.size_mem]
 	add	rcx, rsi
-	
+
 .fs1:	mov	rdi, rdx ; [.name]
 	mov	rsi, rbx
-	
+
 .fs3:	cmp	rsi, rcx
 	jae	.fs_end
 	mov	ax, [rsi]
@@ -196,7 +211,7 @@ proc fast_StrStrNW, .mem_start, .name, .size_mem
 	inc	rsi
 	inc	rsi
 	jmp	.fs3
-	
+
 .fs2:	lea	rbx, [rsi+2]
 
 .fs4:	inc	rdi
@@ -224,7 +239,7 @@ proc fast_StrStrNW, .mem_start, .name, .size_mem
 	pop	rsi
 	pop	rbx
 	ret
-	
+
 endp
 
 

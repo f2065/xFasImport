@@ -144,7 +144,7 @@ endl
 	mov	ebx, eax
 	lea	edi, [lvi]
 	mov	[lvi.iItem], 0
-	
+
 
 .list_loop:
 	mov	eax, [lvi.iItem]
@@ -176,10 +176,10 @@ endl
 	mov	[lvi.pszText], eax
 	mov	[lvi.iSubItem], 3
 	invoke	SendMessageW, [hListViewFFT], LVM_SETITEMW, 0, edi
-	
+
 	inc	[lvi.iItem]
 	jmp	.list_loop
-	
+
 .exit_loop:
 	invoke	LocalUnlock, [hFftList]
 
@@ -304,7 +304,7 @@ endl
 	mov	edi, eax
 	invoke	LocalLock, [hFftList]
 	add	edi, eax
-	
+
 	cmp	[flag_fas], 0
 	jz	.no_fas
 	mov	word [edi+X_FFT_LIST.data_fas], 0
@@ -321,7 +321,7 @@ endl
 
 	lea	ecx, [edi+X_FFT_LIST.data_fas]
 	invoke	lstrcpynW, ecx, esi, MAX_PATH
-	
+
 	invoke	PathIsRelativeW, esi
 	test	eax, eax
 	jnz	.m1
@@ -361,7 +361,7 @@ endl
 	invoke	FileTimeToSystemTime, esi, ebx
 	lea	edx, [loc_time]
 	invoke	SystemTimeToTzSpecificLocalTime, 0, ebx, edx
-	
+
 	mov	ebx, esp
 	movzx	eax, [loc_time.wMilliseconds]
 	push	eax
@@ -390,16 +390,16 @@ endl
 	mov	eax, [itemsFftList]
 	mov	[item_fft_list_helper], eax
 	mov	edx, [msg_FasFileTest_listview_status_time]
-	jmp	.status_end		
+	jmp	.status_end
 .time_ok:
 	mov	edx, [msg_FasFileTest_listview_status_ok]
 .status_end:
 	lea	ecx, [edi+X_FFT_LIST.status_text]
-	invoke	lstrcpynW, ecx, edx, 300 ; !!! size	
+	invoke	lstrcpynW, ecx, edx, 300 ; !!! size
 
 .skip_item:
 	invoke	LocalUnlock, [hFftList]
-	
+
 	cmp	[flag_skip], 0
 	jnz	.m0
 	inc	[itemsFftList]
@@ -419,7 +419,7 @@ endl
 	invoke	GetLastError
 	mov	ebx, eax
 
-	lea	edi, [buffer_text_result]	
+	lea	edi, [buffer_text_result]
 	lea	esi, [buffer_text_error]
 	invoke	FormatMessageW, FORMAT_MESSAGE_IGNORE_INSERTS or FORMAT_MESSAGE_FROM_SYSTEM, 0, ebx, 0, esi, (sizeof.buffer_text_error)/2, 0
 	test	eax, eax
@@ -451,13 +451,13 @@ endl
 	mov	eax, sizeof.X_FFT_LIST
 	mul	ebx
 	add	eax, edi
-	
+
 	invoke	lstrcmpiW, eax, esi
 	test	eax, eax
 	jz	.id1
 	inc	ebx
 	jmp	.id_loop
-	
+
 .id0:	xor	eax, eax
 	jmp	.id_exit
 .id1:	mov	eax, 1
@@ -491,7 +491,7 @@ endl
 	mov	[lvi_sort.mask], LVIF_TEXT
 	mov	[lvi_sort.cchTextMax], MAX_PATH
 
-	mov	eax, [lParamSort] 
+	mov	eax, [lParamSort]
 	mov	[lvi_sort.iSubItem], eax ; [lParamSort] - number of column by which sort is called
 
 	mov	esi, [lParam1]
@@ -543,7 +543,7 @@ proc import_fft_data
 
 	mov	edi, [esi+preprocessed_line.offset_file_name]
 	stdcall	append_to_fft_list, edi
-	
+
 .skip_line:
 	stdcall	get_next_preprocessed_source_item, esi
 	mov	esi, eax

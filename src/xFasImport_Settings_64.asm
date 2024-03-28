@@ -75,6 +75,8 @@ frame
 	mov	[config_flag_comments_manual], rax
 	invoke	IsDlgButtonChecked, [.hWnd], dlg_settings_OFN_force
 	mov	[config_OFN_force], rax
+	invoke	IsDlgButtonChecked, [.hWnd], dlg_settings_autoload_file
+	mov	[config_autoload_file], rax
 
 	stdcall	save_settings
 endf
@@ -114,6 +116,7 @@ frame
 	invoke	CheckDlgButton, [.hWnd], dlg_settings_flag_MANUAL_labels, [config_flag_labels_manual]
 	invoke	CheckDlgButton, [.hWnd], dlg_settings_flag_MANUAL_comments, [config_flag_comments_manual]
 	invoke	CheckDlgButton, [.hWnd], dlg_settings_OFN_force, [config_OFN_force]
+	invoke	CheckDlgButton, [.hWnd], dlg_settings_autoload_file, [config_autoload_file]
 
 	stdcall	set_lng_dialog, [.hWnd], table_lang_dlg_settings
 
@@ -401,6 +404,14 @@ frame
 	@@:
 	mov	rax, [rdi]
 	mov	[config_OFN_force], rax
+
+	cinvoke	BridgeSettingGetUint, t_SettingSection, t_Setting_autoload_file, rdi
+	test	rax, rax
+	jnz	@f
+	mov	qword [rdi], 0
+	@@:
+	mov	rax, [rdi]
+	mov	[config_autoload_file], rax
 endf
 	pop	r12
 	pop	rdi
@@ -425,6 +436,7 @@ frame
 	cinvoke	BridgeSettingSetUint, t_SettingSection, t_Setting_flag_labels_manual, [config_flag_labels_manual]
 	cinvoke	BridgeSettingSetUint, t_SettingSection, t_Setting_flag_comments_manual, [config_flag_comments_manual]
 	cinvoke	BridgeSettingSetUint, t_SettingSection, t_Setting_OFN_force, [config_OFN_force]
+	cinvoke	BridgeSettingSetUint, t_SettingSection, t_Setting_autoload_file, [config_autoload_file]
 endf
 	ret
 endp
@@ -474,7 +486,7 @@ proc tabsize_check_ranges
 	mov	eax, 92
 	@@:
 	mov	[config_tabsize3], rax
-	
+
 	mov	rdx, rax
 	mov	rax, [config_tabsize4]
 	test	rax, rax

@@ -18,6 +18,7 @@
 #define dlg_settings_flag_MANUAL_comments 519
 #define dlg_settings_flags_info 520
 #define dlg_settings_OFN_force 522
+#define dlg_settings_autoload_file 521
 #define dlg_settings_ok 506
 #define dlg_settings_cancel 507
 #define dlg_about 1000
@@ -47,7 +48,7 @@
 #define dlg_filetest_list 1202
 #define dlg_filetest_close 1203
 
-dlg_settings DIALOGEX 0,0,396,249
+dlg_settings DIALOGEX 0,0,396,264
 FONT 8,"Microsoft Sans Serif",400,0,204
 STYLE WS_POPUP|WS_VISIBLE|WS_CAPTION|WS_SYSMENU|DS_CENTER|DS_MODALFRAME|DS_3DLOOK
 EXSTYLE WS_EX_DLGMODALFRAME
@@ -70,10 +71,11 @@ BEGIN
   CONTROL "Use flag MANUAL for labels (otherwise use flag AUTO)",dlg_settings_flag_MANUAL_labels,"Button",WS_CHILDWINDOW|WS_VISIBLE|WS_TABSTOP|BS_AUTOCHECKBOX,12,144,372,12
   CONTROL "Use flag MANUAL for comments (otherwise use flag AUTO)",dlg_settings_flag_MANUAL_comments,"Button",WS_CHILDWINDOW|WS_VISIBLE|WS_TABSTOP|BS_AUTOCHECKBOX,12,156,372,12
   CONTROL "These options affect conflict situations when using other methods\r\n (from other plugins, manually, etc.) of adding labels and comments.",dlg_settings_flags_info,"Static",WS_CHILDWINDOW|WS_VISIBLE,12,168,372,21
-  CONTROL "Always use the file selection dialog (otherwise, search by mask first)",dlg_settings_OFN_force,"Button",WS_CHILDWINDOW|WS_VISIBLE|WS_TABSTOP|BS_AUTOCHECKBOX,12,189,372,12
-  CONTROL "OK",dlg_settings_ok,"Button",WS_CHILDWINDOW|WS_VISIBLE|WS_TABSTOP|BS_DEFPUSHBUTTON,91,216,72,15
-  CONTROL "Cancel",dlg_settings_cancel,"Button",WS_CHILDWINDOW|WS_VISIBLE|WS_TABSTOP,232,216,72,15
-  CONTROL "This RC-file is not used in the build and is only needed for development UI.\r\nThe build uses file xFasImport_Dialogs.asm",-1,"Static",WS_CHILDWINDOW|WS_VISIBLE|SS_CENTER,3,231,390,18
+  CONTROL "Use the .fas-file selection dialog (otherwise, search by mask first)",dlg_settings_OFN_force,"Button",WS_CHILDWINDOW|WS_VISIBLE|WS_TABSTOP|BS_AUTOCHECKBOX,12,189,372,12
+  CONTROL "Automatically load .fas-file (for main process) if it has similar time and it has not been imported before",dlg_settings_autoload_file,"Button",WS_CHILDWINDOW|WS_VISIBLE|WS_TABSTOP|BS_AUTOCHECKBOX,12,204,372,12
+  CONTROL "OK",dlg_settings_ok,"Button",WS_CHILDWINDOW|WS_VISIBLE|WS_TABSTOP|BS_DEFPUSHBUTTON,91,231,72,15
+  CONTROL "Cancel",dlg_settings_cancel,"Button",WS_CHILDWINDOW|WS_VISIBLE|WS_TABSTOP,232,231,72,15
+  CONTROL "This RC-file is not used in the build and is only needed for development UI.\r\nThe build uses file xFasImport_Dialogs.asm",-1,"Static",WS_CHILDWINDOW|WS_VISIBLE|SS_CENTER,3,246,390,18
 END
 
 dlg_about DIALOGEX 0,0,351,201

@@ -6,13 +6,13 @@ proc RunDllDlg
 	invoke	DialogBoxParamA, [hInstance], ID_DLG_DLL, [hwndDlg], DialogProcDll, 0
 	test	eax, eax
 	js	.m0
-	
+
 	mov	ecx, sizeof.X_DLL_LIST
 	mul	ecx
 	mov	edi, eax
 	invoke	LocalLock, [hDllList]
 	add	edi, eax
-	
+
 	lea	ecx, [edi+X_DLL_LIST.Image]
 	stdcall	LoadFasSymbols, ecx
 
@@ -59,7 +59,7 @@ endl
 	invoke	SendMessageW, [hListViewDLL], LVM_GETNEXTITEM, -1, LVNI_SELECTED
 	test	eax, eax
 	js	.dll_cancel
-	
+
 	lea	esi, [lvi]
 	mov	[lvi.mask], LVIF_PARAM
 	mov	[lvi.iItem], eax
@@ -169,7 +169,7 @@ endl
 	mov	ebx, eax
 	lea	edi, [lvi]
 	mov	[lvi.iItem], 0
-	
+
 
 .list_loop:
 	mov	eax, [lvi.iItem]
@@ -207,10 +207,10 @@ endl
 	mov	[lvi.pszText], eax
 	mov	[lvi.iSubItem], 3
 	invoke	SendMessageW, [hListViewDLL], LVM_SETITEMW, 0, edi
-	
+
 	inc	[lvi.iItem]
 	jmp	.list_loop
-	
+
 .exit_loop:
 	invoke	LocalUnlock, [hDllList]
 
@@ -291,7 +291,7 @@ endl
 	mov	edi, eax
 	invoke	LocalLock, [hDllList]
 	add	edi, eax
-	
+
 	mov	ecx, [esi+PLUG_CB_LOADDLL_32.modInfo] ; IMAGEHLP_MODULE64
 	mov	eax, dword [ecx+IMAGEHLP_MODULE64.BaseOfImage]
 	mov	dword [edi+X_DLL_LIST.BaseOfImage], eax
@@ -320,7 +320,7 @@ endl
 	invoke	FileTimeToSystemTime, esi, ebx
 	lea	edx, [loc_time]
 	invoke	SystemTimeToTzSpecificLocalTime, 0, ebx, edx
-	
+
 	mov	ebx, esp
 	movzx	eax, [loc_time.wMilliseconds]
 	push	eax
@@ -342,7 +342,7 @@ endl
 .time_skip:
 
 	invoke	LocalUnlock, [hDllList]
-	
+
 	inc	[itemsDllList]
 
 .m0:
@@ -381,7 +381,7 @@ endl
 	invoke	PathAddBackslashW, esi
 	invoke	lstrlenW, esi
 	mov	[len_foldername], eax
-	
+
 	invoke	LocalLock, [hDllList]
 	mov	edi, eax
 
@@ -392,14 +392,14 @@ endl
 	mov	eax, sizeof.X_DLL_LIST
 	mul	ebx
 	lea	ecx, [eax+edi+X_DLL_LIST.Image]
-	
+
 	invoke	StrCmpNIW, ecx, esi, [len_foldername]
 	test	eax, eax
 	jz	.cont
 	cmp	[item_dll_list_helper], -1
 	jne	.end_double
 	mov	[item_dll_list_helper], ebx
-	
+
 .cont:	inc	ebx
 	jmp	.loop
 
@@ -486,7 +486,7 @@ endl
 
 	dec	[itemsDllList]
 	invoke	LocalUnlock, [hDllList]
-	
+
 	mov	eax, [itemsDllList]
 	mov	ecx, sizeof.X_DLL_LIST
 	mul	ecx
@@ -526,7 +526,7 @@ endl
 	mov	[lvi_sort.mask], LVIF_TEXT
 	mov	[lvi_sort.cchTextMax], MAX_PATH
 
-	mov	eax, [lParamSort] 
+	mov	eax, [lParamSort]
 	mov	[lvi_sort.iSubItem], eax ; [lParamSort] - number of column by which sort is called
 
 	mov	esi, [lParam1]

@@ -5,7 +5,7 @@ MAX_MODULE_SIZE = 256
 MAX_LABEL_SIZE = 256
 MAX_COMMENT_SIZE = 512
 MAX_SETTING_SIZE = 65536
- 
+
 ;CBTYPE
 CB_INITDEBUG = 0
 CB_STOPDEBUG = 1
@@ -28,7 +28,7 @@ CB_DEBUGEVENT = 17
 CB_MENUENTRY = 18
 CB_WINEVENT = 19
 CB_WINEVENTGLOBAL = 20
- 
+
 SEG_DEFAULT = 0
 
 ; _plugins.h
@@ -38,7 +38,7 @@ struct PLUG_INITSTRUCT
   pluginVersion rd 1
   pluginName rd 1
 ends
- 
+
 ; _plugins.h
 struct PLUG_SETUPSTRUCT_32
   hwndDlg rd 1 ; gui window handle
@@ -138,6 +138,21 @@ struct PLUG_CB_INITDEBUG_64
   szFileName rq 1
 ends
 
+; _plugins.h
+struct PLUG_CB_LOADSAVEDB_32
+  root rd 1 ; json_t*
+  loadSaveType rd 1 ; int
+ends
+
+; _plugins.h
+struct PLUG_CB_LOADSAVEDB_64
+  root rq 1 ; json_t*
+  loadSaveType rq 1 ; int
+ends
+
+PLUG_DB_LOADSAVE_DATA = 1
+PLUG_DB_LOADSAVE_ALL = 2
+
 ; bridgemain.h
 struct ICONDATA_32
   data rd 1
@@ -149,8 +164,5 @@ struct ICONDATA_64
   data rq 1
   size rq 1
 ends
-
-
-
 
 

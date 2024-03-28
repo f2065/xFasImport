@@ -5,7 +5,7 @@
 	ID_DLG_FASFILETEST,LANG_ENGLISH+SUBLANG_DEFAULT,dll_fasfiletest,\
 	ID_DLG_ABOUT,LANG_ENGLISH+SUBLANG_DEFAULT,about_dlg
 
- dialog main_dlg,"xFasConv2 Settings",0,0,396,249,WS_CAPTION or DS_3DLOOK or WS_VISIBLE or WS_POPUP or WS_SYSMENU or DS_MODALFRAME or DS_CENTER,WS_EX_DLGMODALFRAME,,"Microsoft Sans Serif",8
+ dialog main_dlg,"xFasConv2 Settings",0,0,396,264,WS_CAPTION or DS_3DLOOK or WS_VISIBLE or WS_POPUP or WS_SYSMENU or DS_MODALFRAME or DS_CENTER,WS_EX_DLGMODALFRAME,,"Microsoft Sans Serif",8
 	dialogitem "Static","Source text codepage",dlg_settings_codepage_info,12,9,87,12,WS_CHILDWINDOW or WS_VISIBLE or SS_CENTERIMAGE
 	dialogitem "ComboBox","",dlg_settings_codepage_select,102,9,279,51,WS_CHILDWINDOW or WS_VISIBLE or WS_TABSTOP or CBS_DROPDOWNLIST or WS_VSCROLL or WS_HSCROLL
 	dialogitem "Button","Delete all old labels before import",dlg_settings_delete_old_labels,12,27,372,12,WS_CHILDWINDOW or WS_VISIBLE or WS_TABSTOP or BS_AUTOCHECKBOX
@@ -24,9 +24,10 @@
 	dialogitem "Button","Use flag MANUAL for labels (otherwise use flag AUTO)",dlg_settings_flag_MANUAL_labels,12,144,372,12,WS_CHILDWINDOW or WS_VISIBLE or WS_TABSTOP or BS_AUTOCHECKBOX
 	dialogitem "Button","Use flag MANUAL for comments (otherwise use flag AUTO)",dlg_settings_flag_MANUAL_comments,12,156,372,12,WS_CHILDWINDOW or WS_VISIBLE or WS_TABSTOP or BS_AUTOCHECKBOX
 	dialogitem "Static",<"These options affect conflict situations when using other methods",13,10,"(from other plugins, manually, etc.) of adding labels and comments.">,dlg_settings_flags_info,12,168,372,21,WS_CHILDWINDOW or WS_VISIBLE
-	dialogitem "Button","Always use file select dialog",dlg_settings_OFN_force,12,189,372,12,WS_CHILDWINDOW or WS_VISIBLE or WS_TABSTOP or BS_AUTOCHECKBOX
-	dialogitem "Button","OK",dlg_settings_ok,91,216,72,15,WS_CHILDWINDOW or WS_VISIBLE or WS_TABSTOP or BS_DEFPUSHBUTTON
-	dialogitem "Button","Cancel",dlg_settings_cancel,232,216,72,15,WS_CHILDWINDOW or WS_VISIBLE or WS_TABSTOP
+	dialogitem "Button","Use the file selection dialog (otherwise, search by mask first)",dlg_settings_OFN_force,12,189,372,12,WS_CHILDWINDOW or WS_VISIBLE or WS_TABSTOP or BS_AUTOCHECKBOX
+	dialogitem "Button","Automatically load .fas-file (for main process) if it has similar time",dlg_settings_autoload_file,12,204,372,12,WS_CHILDWINDOW or WS_VISIBLE or WS_TABSTOP or BS_AUTOCHECKBOX
+	dialogitem "Button","OK",dlg_settings_ok,91,231,72,15,WS_CHILDWINDOW or WS_VISIBLE or WS_TABSTOP or BS_DEFPUSHBUTTON
+	dialogitem "Button","Cancel",dlg_settings_cancel,232,231,72,15,WS_CHILDWINDOW or WS_VISIBLE or WS_TABSTOP
  enddialog
 
  dialog about_dlg,"xFasConv2 About",0,0,351,201,WS_CAPTION or DS_3DLOOK or WS_VISIBLE or WS_POPUP or WS_SYSMENU or DS_MODALFRAME or DS_CENTER,WS_EX_DLGMODALFRAME,,"Microsoft Sans Serif",8
@@ -49,7 +50,7 @@
 	dialogitem "Static","",dlg_about_lang_status,6,162,339,9,WS_CHILDWINDOW or WS_VISIBLE or SS_CENTER
 	dialogitem "Button","Close",dlg_about_close,144,174,63,15,WS_CHILDWINDOW or WS_VISIBLE or WS_TABSTOP or BS_DEFPUSHBUTTON
  enddialog
-  
+
  dialog dll_dlg,"Load .fas for DLL",0,0,519,183,WS_CAPTION or DS_3DLOOK or WS_VISIBLE or WS_POPUP or WS_SYSMENU or DS_MODALFRAME or DS_CENTER,WS_EX_DLGMODALFRAME,,"Microsoft Sans Serif",8
 	dialogitem "SysListView32","",dlg_dll_list,9,9,498,144,WS_CHILDWINDOW or WS_VISIBLE or WS_TABSTOP or LVS_REPORT or LVS_SHOWSELALWAYS or LVS_SINGLESEL,WS_EX_CLIENTEDGE
 	dialogitem "Button","Cancel",dlg_dll_cancel,9,162,111,15,WS_CHILDWINDOW or WS_VISIBLE or WS_TABSTOP
