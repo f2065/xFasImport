@@ -9,3 +9,5 @@ Development plan:
 7. Obj-load COFF;
 8. Manual load offsets;
 9. Tips about fas-files;
+10. Warning when main process is missing;
+11. Optional - all warnings as msgbox;
